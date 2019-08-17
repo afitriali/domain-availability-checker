@@ -3,7 +3,7 @@
 import sys
 import whois
 
-def find_available_domains(min_chars=2, max_chars=4, charset='abcdefghijklmnopqrstuvwxyz', tlds=['io', 'co', 'com']):
+def find_available_domains(min_chars, max_chars, charset, tlds):
     domains = ['']
     for character in range(max_chars):
         domains = build_domain_list(domains, charset)
@@ -44,5 +44,13 @@ def domain_available(domain):
     except:
         return False
 
-# function(int:minimum_characters, int:maximum_characters, string:character_set, list:tlds)
-find_available_domains(2, 4, 'fitri')
+try:
+    min_chars = int(input("Enter the Min number of characters (int): "))
+    max_chars = int(input("Enter the Max number of characters (int): "))
+except:
+    print("Error: Must be a number, try again. Exiting script.")
+    sys.exit()
+charset = input("Enter the character sets (string or alphabets if left empty): ")
+tlds = input("Enter the TLDs (strings separated with space - e.g:- io com co): ")
+tlds = tlds.split()
+find_available_domains(min_chars, max_chars, charset if charset != '' else 'abcdefghijklmopqrstuvwxyz', tlds)
